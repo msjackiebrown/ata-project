@@ -1,0 +1,1 @@
+web: java -cp target/uberjar/pricebook.jar clojure.main -m pricebook.core

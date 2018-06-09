@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<title>Welcome to pricebook</title>
+</head>
+<body>
+	<div id="navbar"></div>
+	<div id="app">
+		<div class="container-fluid">
+			<div class="row">
+				<h1 class="col-12">Welcome to the PriceBook!!!</h1>
+				<p class="col-12">Track prices on items you buy! Click ADD to
+					add a price!</p>
+				<button class="btn-primary" id="add">Add Price</button>
+			</div>
+			<div class="row">
+				<div id="new-price" title="Enter new price">
+					<form method="POST" action="/">
+						{% csrf-field %} 
+						<label for="id">Id:</label>
+						<input class="form-control" type="text" name="id" value="{{id}}"></input>
+						{% if errors.id%}
+						<div class="alert alert-danger">{{errors.id|join}}</div>
+						{% endif %} 
+						<label for="entry_date">Date:</label><input class="form-control" type="date"
+							name="entry_date" value="{{entry_date}}"></input> {% if
+						errors.entry_date%}
+						<div class="alert alert-danger">{{errors.entry_date|join}}</div>
+						{% endif %} 
+						<label for="item">Item:</label><input class="form-control" type="text" name="item"
+							value="{{item}}"></input>{% if errors.item%}
+						<div class="alert alert-danger">{{errors.item|join}}</div>
+						{% endif %} 
+						<label for="price">Price:</label><input class="form-control" type="text" name="price"
+							value="{{price}}"></input> {% if errors.price%}
+						<div class="alert alert-danger">{{errors.price|join}}</div>
+						{% endif %} <input type="submit" value="Enter Price"
+							class="btn-primary"></input>
+					</form>
+				</div>
+				{% block content %}
+				<table class="table-striped col-12">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Item</th>
+							<th>Price</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>06/08/2018</td>
+							<td>tomato</td>
+							<td>0.99</td>
+							<td><button class="btn-primary" id="edit">Edit</button>
+								<button class="btn-primary" id="delete">Delete</button>
+						</tr>
+						{% for item in prices %}
+						<tr>
+							<td>{{item.entry_date} date:"MM-dd-yyyy"}}</td>
+							<td>{{item.item}}</td>
+							<td>{{item.price}}</td>
+							<td><button class="btn-primary" id="edit">Edit</button>
+								<button class="btn-primary" id="delete">Delete</button></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{% endblock %}
+			</div>
+		</div>
+	</div>
+	<!-- scripts and styles -->
+	{% style "/assets/bootstrap/css/bootstrap.min.css" %} {% style
+	"/assets/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css"
+	%} {% style "/css/screen.css" %} {% script
+	"/assets/jquery/jquery.min.js" %} {% script
+	"/assets/font-awesome/svg-with-js/js/fontawesome.min.js" %} {% script
+	"/assets/tether/dist/js/tether.min.js" %} {% script
+	"/assets/bootstrap/js/bootstrap.min.js" %}
+
+
+	<script type="text/javascript">
+		var csrfToken = "{{csrf-token}}";
+	</script>
+	{% script "/js/app.js" %}
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</body>
+</html>
