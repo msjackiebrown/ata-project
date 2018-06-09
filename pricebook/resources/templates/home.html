@@ -21,7 +21,7 @@
 					<form method="POST" action="/">
 						{% csrf-field %} 
 						<label for="id">Id:</label>
-						<input class="form-control" type="text" name="id" value="{{id}}"></input>
+						<input class="form-control id" type="text" name="id" value="{{id}}"></input>
 						{% if errors.id%}
 						<div class="alert alert-danger">{{errors.id|join}}</div>
 						{% endif %} 
@@ -45,6 +45,7 @@
 				<table class="table-striped col-12">
 					<thead>
 						<tr>
+							<th>Id </th>
 							<th>Date</th>
 							<th>Item</th>
 							<th>Price</th>
@@ -53,19 +54,21 @@
 					</thead>
 					<tbody>
 						<tr>
+						<td> N/A </td>
 							<td>06/08/2018</td>
 							<td>tomato</td>
 							<td>0.99</td>
-							<td><button class="btn-primary" id="edit">Edit</button>
-								<button class="btn-primary" id="delete">Delete</button>
+							<td><button class="btn-primary edit">Edit</button>
+								<button class="btn-primary delete">Delete</button>
 						</tr>
 						{% for item in prices %}
 						<tr>
-							<td>{{item.entry_date} date:"MM-dd-yyyy"}}</td>
+							<td class="id">{{item.id}}</td>
+							<td class="entry_date">{{item.entry_date} date:"MM-dd-yyyy"}}</td>
 							<td>{{item.item}}</td>
 							<td>{{item.price}}</td>
-							<td><button class="btn-primary" id="edit">Edit</button>
-								<button class="btn-primary" id="delete">Delete</button></td>
+							<td><button class="btn-primary edit">Edit</button>
+								<button class="btn-primary delete">Delete</button></td>
 						</tr>
 						{% endfor %}
 					</tbody>

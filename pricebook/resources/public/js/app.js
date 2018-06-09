@@ -4,11 +4,22 @@
  */
 $(document).ready(function() {
 
-	$("#edit").click(function() {
+	$(".edit").click(function() {
 		
 		console.log("Edit price information");
-		var id =$("#edit").parent.id();
+		var row =$(this).closest("tr");
 		
+		var id = row.find(".id").text();
+		var date = row.find(".date").text();
+		var item = row.find(".item").text();
+		var price = row.find(".price").text();
+		
+		$("#new-price").dialog();
+		("#new-price .id").val(id);
+		
+		
+			
+		console.log(id);
 		//Get parent row
 
 		$.ajax({
