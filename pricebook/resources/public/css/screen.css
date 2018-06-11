@@ -66,4 +66,10 @@ body {
         transform: rotate(360deg);
     }
 }
+#myChart
+{
+	width: 300px;
+	height: 300px;
+}
+
 

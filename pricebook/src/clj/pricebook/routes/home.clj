@@ -27,8 +27,19 @@
     st/string   ]
    ])
 
+
+
 (defn validate-price [params]
   (first (st/validate params message-schema)))
+
+(defn get-items! [{:keys [params]}]
+  (if-let [errors (validate-price params)]
+    (-> (response/found "/")
+        (assoc :flash (assoc params :errors errors)))
+    (do
+      (db/save-price!
+       (assoc params :entry_date (java.util.Date.)))
+      (response/found "/"))))
 
 (defn save-price! [{:keys [params]}]
   (if-let [errors (validate-price params)]
@@ -68,4 +79,5 @@
   (POST "/" request (save-price! request))
   (PUT "/" request (update-price! request))
   (DELETE "/" request(delete-price! request))
+  (GET "/labels" request(get-items! request))
  )

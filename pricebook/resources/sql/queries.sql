@@ -23,3 +23,7 @@ WHERE id = :id
 -- :name get-prices :? :*
 -- :doc selects all prices
 SELECT * FROM prices
+
+-- :name get-items :? :*
+-- :doc selects items
+SELECT DISTINCT item FROM prices
